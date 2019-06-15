@@ -1,0 +1,23 @@
+@startuml Architecture
+
+
+package app {
+    component Controller
+
+    [Controller] -> [Usecase]
+
+    [Usecase] --> [Entity]
+
+    [Usecase] <- [Driver]
+    [Usecase] <-- [Repository]
+
+}
+[Client] --> [Controller] : HTTP
+[Driver] -> [Server]
+[Driver] --> [MessageBrocker]
+
+database Database
+
+[Repository] --> [Database]
+
+@enduml
