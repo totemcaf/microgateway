@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"fmt"
 	"net/url"
 	"regexp"
 	"strings"
@@ -20,13 +21,13 @@ type Target struct {
 // In the template the provided variables are:
 //		.method	the called method
 // 		.path	the called path (includes the query string)
-func NewTarget(id string, receiveURLPatternStr string, targetURLStr string) (*Target, error) {
-	receiveURLPatern, err := regexp.Compile(targetURLStr)
+func NewTarget(id string, receiveURLPatternStr string, targetURLTemplateStr string) (*Target, error) {
+	receiveURLPatern, err := regexp.Compile(receiveURLPatternStr)
 	if err != nil {
 		return nil, err
 	}
 
-	urlTemplate, err := template.New("targetUrl").Parse(receiveURLPatternStr)
+	urlTemplate, err := template.New("targetUrl").Parse(targetURLTemplateStr)
 	if err != nil {
 
 		return nil, err
@@ -49,5 +50,7 @@ func (t *Target) MakeURL(m *Message) (*url.URL, error) {
 
 // Match checks this target agains the given URL path. Return true if the path is for this target
 func (t *Target) Match(path string) bool {
+	fmt.Print("->")
+	fmt.Println(t.receiveURLPatern.String())
 	return t.receiveURLPatern.MatchString(path)
 }

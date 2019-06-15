@@ -6,7 +6,7 @@ import "time"
 type Message struct {
 	ID          string
 	Target      string
-	path        string
+	Path        string
 	Method      string
 	ContentType string
 	Payload     []byte
