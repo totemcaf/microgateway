@@ -32,6 +32,13 @@ The *controller* package contains componentes to connect the external systems to
 
 ![Architecture](doc/img/doc/Architecture.png)
 
+# Test
+
+The mocks were created with https://github.com/vektra/mockery :
+
+    PATH=$PATH:~/go/bin
+    mockery -all
+
 # References
 
 * 

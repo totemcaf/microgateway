@@ -54,3 +54,21 @@ func (t *Target) Match(path string) bool {
 	fmt.Println(t.receiveURLPatern.String())
 	return t.receiveURLPatern.MatchString(path)
 }
+
+// GetIDFor extracts the message ID from the message.
+// This versions extracts the ID from the message "path" using the regular expression.
+func (t *Target) GetIDFor(m *Message) string {
+	groups := t.receiveURLPatern.FindStringSubmatch(m.Path)
+
+	switch len(groups) {
+	case 0:
+		// No match, defaults to all the path
+		return m.Path
+	case 1:
+		// All the path is matched
+		return groups[0]
+	default:
+		// At least 1 subgroup is found, use it
+		return groups[1]
+	}
+}
